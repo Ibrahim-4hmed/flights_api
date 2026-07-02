@@ -1,0 +1,12 @@
+{
+  "name": "flights_api",
+  "version": "1.0.0",
+  "description": "API gives data about flights ",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Ibrahim",
+  "license": "ISC"
+}
