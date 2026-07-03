@@ -1,13 +1,24 @@
 import http from 'node:http'
-import data from './database/db'
-
-const flights = data;
+import {getDataFromDB} from './database/db.js'
 
 
-const PORT = 2000;
 
-const server = http.createServer((req,res) => {
-    res.end("hello form node js file")
+const PORT = process.env.PORT || 3000;;
+
+const server = http.createServer( async (req,res) => {
+    const flightsData = await getDataFromDB();
+
+    if (req.url === '/api' && req.method === 'GET') {
+        res.setHeader('Content-Type', 'application/json')
+        res.statusCode = 200
+        res.end(JSON.stringify(flightsData))
+    } else {
+        res.setHeader('Content-Type', 'application/json')
+        res.statusCode = 404
+        res.end(JSON.stringify(
+            {error: "not found", message: "The requested route does not exist"}
+        ))
+    }
 })
 
 server.listen(PORT, () => console.log(`server runing on port ${PORT}`))

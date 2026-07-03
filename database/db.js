@@ -1,6 +1,6 @@
-import data from '../data/data.js'
+import {data} from '../data/data.js'
 
-export default async function dataFromDB() {
+export async function getDataFromDB() {
     return data
 }
 

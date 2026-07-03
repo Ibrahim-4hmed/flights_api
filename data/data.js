@@ -1,4 +1,4 @@
-export default {
+export const data = {
   en: [
     {
       id: 1754567501000,
