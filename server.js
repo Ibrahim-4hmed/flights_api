@@ -1,5 +1,6 @@
 import http from 'node:http'
 import {getDataFromDB} from './database/db.js'
+import { sendJSONResponse } from './utils/sendJSONResponse.js';
 
 
 
@@ -7,19 +8,13 @@ const PORT = process.env.PORT || 3000;
 
 const server = http.createServer( async (req,res) => {
     const flightsData = await getDataFromDB();
+    
 
     if (req.url === '/api' && req.method === 'GET') {
-        res.setHeader('Content-Type', 'application/json')
-        res.setHeader('Access-Control-Allow-Origin', '*')
-        res.setHeader('Access-Control-Allow-Methods', 'GET')
-        res.statusCode = 200
-        res.end(JSON.stringify(flightsData))
+        sendJSONResponse(res,200,flightsData)
     } else {
-        res.setHeader('Content-Type', 'application/json')
-        res.statusCode = 404
-        res.end(JSON.stringify(
-            {error: "not found", message: "The requested route does not exist"}
-        ))
+        sendJSONResponse(res,404,
+        {error: "not found", message: "The requested route does not exist"})
     }
 })
 
