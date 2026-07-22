@@ -17,7 +17,8 @@ const filePath = path.join(__dirname,'data','data.js')
 
     if (req.url === '/api' && req.method === 'GET') {
         try {
-            const flightsData = await  fs.readFile(filePath)
+            const flightsData = await  fs.readFile(filePath,'utf8')
+            console.log(flightsData)
             sendJSONResponse(res,200,flightsData)
         } catch (error) {
             console.log(error)
