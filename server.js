@@ -1,5 +1,6 @@
 import http from 'node:http'
-// import {getDataFromDB} from './database/db.js'
+import {getDataEn} from './utils/getData.js'
+import { getDataAr } from './utils/getData.js';
 import { sendJSONResponse } from './utils/sendJSONResponse.js';
 import path from 'node:path';
 import fs from 'node:fs/promises'
@@ -8,21 +9,14 @@ import fs from 'node:fs/promises'
 
 const PORT = process.env.PORT || 3000;
 
-const __dirname = import.meta.dirname
-
 const server = http.createServer( async (req,res) => {
 
-const filePath = path.join(__dirname,'data','data.js')
-
-
-    if (req.url === '/api' && req.method === 'GET') {
-        try {
-            const flightsData = await  fs.readFile(filePath,'utf8')
-            console.log(flightsData)
-            sendJSONResponse(res,200,flightsData)
-        } catch (error) {
-            console.log(error)
-        }
+    if (req.url === '/api/en' && req.method === 'GET') {
+            const flightsDataEn = await getDataEn()
+            sendJSONResponse(res,200,flightsDataEn)
+    } else if (req.url === '/api/ar' && req.method === 'GET') {
+            const flightsDataAr = await getDataAr()
+            sendJSONResponse(res,200,flightsDataAr)
     } else {
         sendJSONResponse(res,404,
         {error: "not found", message: "The requested route does not exist"})
