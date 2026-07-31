@@ -1,15 +1,15 @@
-export const getDataByPathParams = (data, locationType, locationName) => {
+export const getDataByPathParams = (data, airlineName) => {
 
   return data.filter((flight) => {
-    return flight[locationType].toLowerCase() === locationName.toLowerCase()
+    return flight.airline.toLowerCase() === airlineName.toLowerCase()
   })
 
 }
 
-export const getDataByPathParamsAr = (data, locationType, locationName) => {
+export const getDataByPathParamsAr = (data, ailrlineName) => {
 
   return data.filter((flight) => {
-    return flight[locationType] === locationName
+    return flight["airline"] === ailrlineName
   })
 
 }
